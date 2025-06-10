@@ -24,10 +24,6 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        return view('home');
-    }
 
     public function proteksi_1_admin()
     {
@@ -48,4 +44,11 @@ class HomeController extends Controller
         return view('user.home', compact('events'));
     }
 
+    public function showDetail($slug)
+    {
+        $event = Event::with('organizer')->where('slug', $slug)->firstOrFail();
+        return view('user.event_detail', compact('event'));
+    }
+
+    
 }

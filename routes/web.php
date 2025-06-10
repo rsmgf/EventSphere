@@ -5,21 +5,24 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\GuestController;
 use App\Http\Controllers\OrganizerController;
 
-
-
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/detail', function () {
-    return view('user.detail_event');
-});
 
 Auth::routes(["verify" => true]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('home');
+Route::get('/', [GuestController::class, 'index']);
+Route::get('/event/{slug}', [GuestController::class, 'showDetail'])->name('event_detail');
+
+
+
+
+Route::get('/detail', function () {
+    return view('user.detail_event');
+});
+
 
 Route::prefix('admin')->name('admin.')->group(function () {
     //Middleware Check
@@ -50,6 +53,7 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::get('home', [HomeController::class, 'userHome'])->name('home');
         Route::get('proteksi-1', [HomeController::class, 'proteksi_1_user'])->name('proteksi_1');
         Route::post('/events/{event}/register', [BookingController::class, 'store'])->name('register');
+        Route::get('/event/{slug}', [HomeController::class, 'showDetail'])->name('event_detail');
         // Route::get('detail_event', [GuestController::class, 'detail_event'])->name('detail_event');
         // Route::get('daftar_event', [GuestController::class, 'daftar_event'])->name('daftar_event');
         // Route::post('proses_daftar_event', [GuestController::class, 'proses_daftar_event'])->name('proses_daftar_event');

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="great-vibes-font">Welcome To EventSphere!</h1>
+        <h1 class="great-vibes-font">Welcome To EventSphere{{ Auth::check() ? ', ' . Auth::user()->name . '!' : '!' }}!</h1>
     </div>
 
     <!-- Isi konten di sini -->
@@ -19,7 +19,7 @@
                     <p class="card-text">{{ \Illuminate\Support\Str::limit($event->description, 100) }}</p>
                 </div>
                 <div class="card-footer bg-transparent border-top-0 mb-3">
-                    <a href="#" class="btn btn-primary w-100">Detail Event</a>
+                    <a href="{{ route('user.event_detail',  ['slug' => $event->slug]) }}" class="btn btn-primary w-100">Detail Event</a>
                 </div>
             </div>
         </div>

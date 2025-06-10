@@ -1,7 +1,7 @@
-@extends('admin.template')
+@extends('user.template')
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Detail Event {{ $event['title'] }}</h1>
+        <h1 class="h2">Detail Event {{ $event['name'] }}</h1>
     </div>
     <div id="pageContentContainer">
         <div id="detailEventContent" class="page-section">
@@ -12,6 +12,7 @@
                 <div class="container mb-3 border-bottom">
                     <h2 class="mb-3 h3">Deskripsi</h2>
                     <p>{{ $event['description'] }}</p>
+
 
                     <h2 class="h3 mt-4 mb-3">Jadwal</h3>
                     <div class="event-meta-item">
@@ -50,18 +51,38 @@
                     </div>
 
 
-
                     <h2 class="h3 mt-4 mb-3">Tempat / Platform</h3>
                     <p>{{ $event['location'] }}</p>
 
                 </div>
                 <div class="d-flex justify-content-center gap-2">
-                    <a href="#">
-                        <button type="button" class="btn btn-primary">Edit</button>
+                    {{-- <form action="{{ route('guest.like_event') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="event_id">
+                        <button type="submit" class="btn btn-primary flex items-center">
+                            @if ($event['is_like'])
+                                <i class="bi bi-heart-fill"></i>
+                            @else
+                                <i class="bi bi-heart"></i>
+                            @endif
+                            <span>Like</span>
+                        </button>
+                    </form> --}}
+                    {{-- <a href="{{ route('guest.pendaftaran_event') }}"> --}}
+                        <button type="button" class="btn btn-primary">Daftar Sekarang</button>
                     </a>
-                    <a href="#">
-                        <button type="button" class="btn btn-primary">Daftar Pendaftar</button>
-                    </a>
+                    {{-- <form action="{{ route('guest.bookmark_event') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="event_id">
+                        <button type="submit" class="btn btn-primary flex items-center">
+                            @if ($event['is_bookmark'])
+                                <i class="bi bi-bookmark-fill"></i>
+                            @else
+                                <i class="bi bi-bookmark"></i>
+                            @endif
+                            <span>Bookmark</span>
+                        </button>
+                    </form> --}}
                 </div>
             </div>
         </div>

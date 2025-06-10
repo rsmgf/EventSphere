@@ -90,7 +90,6 @@ class EventController extends Controller
     public function showDetail($slug)
     {
         $event = Event::with('organizer')->where('slug', $slug)->firstOrFail();
-
         return view('admin.event_detail', compact('event'));
     }
 
