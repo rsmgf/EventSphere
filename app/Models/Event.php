@@ -29,15 +29,26 @@ class Event extends Model
         return $this->hasMany(Booking::class);
     }
 
-    // Admin yang membuat event
-    public function creator()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-
     public function organizer()
     {
         return $this->belongsTo(Organizer::class);
     }
+
+    /**
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    */
+    public function bookmarkedBy()
+    {
+        return $this->belongsToMany(User::class, 'bookmarks')->withTimestamps();
+    }
+
+    /**
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    */
+    public function likedBy()
+    {
+        return $this->belongsToMany(User::class, 'likes')->withTimestamps();
+    }
+
 
 }

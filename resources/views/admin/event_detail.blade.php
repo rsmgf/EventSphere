@@ -1,7 +1,10 @@
 @extends('admin.template')
+
+@section('title',  $event->title .' - EventSphere')
+
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Detail Event {{ $event['title'] }}</h1>
+        <h1 class="h4">Detail Event {{ $event['title'] }}</h1>
     </div>
     <div id="pageContentContainer">
         <div id="detailEventContent" class="page-section">
@@ -10,10 +13,10 @@
 
             <div class="event-details-body">
                 <div class="container mb-3 border-bottom">
-                    <h2 class="mb-3 h3">Deskripsi</h2>
+                    <h4 class="mb-3 h4">Deskripsi</h4>
                     <p>{{ $event['description'] }}</p>
 
-                    <h2 class="h3 mt-4 mb-3">Jadwal</h3>
+                    <h4 class="h4 mt-4 mb-3">Jadwal</h4>
                     <div class="event-meta-item">
                         {{-- <i class="bi bi-calendar3"></i> --}}
                         <span>
@@ -29,10 +32,13 @@
                         <span><strong>Lokasi:</strong> Gelora Bung Karno Stadium, Jakarta</span>
                     </div> --}}
 
-                    <h2 class="h3 mt-4 mb-3">Syarat & Ketentuan</h3>
-                    <pre>{{ $event->sk }}</pre>
+                    <h4 class="h4 mt-4 mb-3">Syarat & Ketentuan</h4>
+                    <p>{{ $event->sk }}</p>
 
-                     <h2>Penyelenggara:</h2>
+                    <h4 class="h4 mt-4 mb-3">Sisa tiket</h4>
+                    <p>{{ $event->max_tickets - $event->bookings->count() }}</p>
+
+                    <h4 class="h4 mt-4 mb-3">Penyelenggara:</h4>
                     <p>{{ $event->organizer->name }}</p>
 
                     <div class="d-flex gap-2 mt-2">
@@ -49,19 +55,28 @@
                         @endif
                     </div>
 
+                    <h4 class="h4 mt-4 mb-3">Harga</h4>
+                    <p>{{ $event->harga == 0 ? 'Gratis' : 'Rp ' . number_format($event->harga, 0, ',', '.') }}</p>
 
+                    <h4 class="h4 mt-4 mb-3">Nomor Pembayaran:</h4>
+                    <p>{{ $event->organizer->payment_account }}</p>
 
-                    <h2 class="h3 mt-4 mb-3">Tempat / Platform</h3>
+                    <h4 class="h4 mt-4 mb-3">Tempat / Platform</h4>
                     <p>{{ $event['location'] }}</p>
 
                 </div>
                 <div class="d-flex justify-content-center gap-2">
-                    <a href="#">
-                        <button type="button" class="btn btn-primary">Edit</button>
+                    <a href="{{ route('admin.edit', $event->id) }}">
+                        <button type="button" class="btn btn-warning">Edit</button>
                     </a>
-                    <a href="#">
+                    <a href="{{ route('admin.booking_list', $event->id) }}">
                         <button type="button" class="btn btn-primary">Daftar Pendaftar</button>
                     </a>
+                    <form action="{{ route('admin.delete_event', $event->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus event ini?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Hapus</button>
+                    </form>
                 </div>
             </div>
         </div>

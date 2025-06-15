@@ -18,4 +18,9 @@ class GuestController extends Controller
         $event = Event::with('organizer')->where('slug', $slug)->firstOrFail();
         return view('event_detail', compact('event'));
     }
+
+    public function info()
+    {
+        return view('info');
+    }
 }

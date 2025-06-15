@@ -18,20 +18,17 @@ class UserRole
     public function handle(Request $request, Closure $next, $roleuser): Response
     {
         if (!Auth::check()) {
-        return redirect()->route('login');
-    }
+            return redirect()->route('login');
+        }
+
         $user = Auth::user();
 
-    if ($user->role === $roleuser) {
-        return $next($request);
-    }
+        if ($user->role === $roleuser) {
+            return $next($request);
+        }
+        
 
-    if ($user->role === 'admin') {
-        return redirect()->route('admin.home')->with('status', 'Anda tidak memiliki akses ke halaman ini.');
-    } elseif ($user->role === 'user') {
-        return redirect()->route('user.home')->with('status', 'Anda tidak memiliki akses ke halaman ini.');
-    }
-
-    return redirect()->route('home');
+        // Kalau role tidak cocok, langsung tolak
+        return abort(403, 'Anda tidak memiliki akses.');
     }
 }

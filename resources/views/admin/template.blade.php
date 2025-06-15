@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Admin - EventSphere</title>
+    <title>@yield('title', 'Halaman Admin - EventSphere')</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Bootstrap Icons (Opsional, untuk ikon) -->
@@ -220,23 +220,28 @@
             </li>
             <li>
                 <a href="{{ route('admin.tambah') }}" class="nav-link text-white {{ request()->routeIs('admin.tambah')  ? 'active' : '' }}">
-                    <i class="bi bi-calendar-event me-2"></i>
+                    <i class="bi bi-plus me-2"></i>
                     Tambah Event
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.org_create') }}" class="nav-link text-white {{ request()->routeIs('admin.org_create')  ? 'active' : '' }}">
+                <a href="{{ route('admin.events_list') }}" class="nav-link text-white {{ request()->routeIs('admin.events_list')  ? 'active' : '' }}">
                     <i class="bi bi-calendar-event me-2"></i>
-                    Tambah Penyelenggara
+                    Daftar Event
                 </a>
             </li>
-            {{-- ---------------------------------------------------------------------------------- --}}
-            {{-- <li>
-                <a href="#" class="nav-link text-white {{ request()->routeIs('admin.data_booking')  ? 'active' : '' }}">
+            <li>
+                <a href="{{ route('admin.org_list') }}" class="nav-link text-white {{ request()->routeIs('admin.org_list')  ? 'active' : '' }}">
+                    <i class="bi bi-person me-2"></i>
+                    Daftar Penyelenggara
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('admin.all_bookings') }}" class="nav-link text-white {{ request()->routeIs('admin.datftar_booking')  ? 'active' : '' }}">
                     <i class="bi bi-info-circle-fill me-2"></i>
                     Data Booking
                 </a>
-            </li> --}}
+            </li>
             {{-- <li>
                 <a href="{{ route('admin.laporan') }}" class="nav-link text-white {{ request()->routeIs('admin.laporan')  ? 'active' : '' }}">
                     <i class="bi bi-clock-history me-2"></i>
@@ -297,13 +302,19 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-person-circle"></i> Akun Saya
+                                <i class="bi bi-person-circle"></i> {{ Auth::check() ? Auth::user()->name : '' }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" href="#">Profil</a></li>
-                                <li><a class="dropdown-item" href="#">Pengaturan</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
                             </ul>
                         </li>
                     </ul>

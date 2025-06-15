@@ -1,7 +1,11 @@
 @extends('user.template')
+
+@section('title', 'Event Detail')
+
+
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Detail Event {{ $event['name'] }}</h1>
+        <h1 class="h2">Detail Event {{ $event['title'] }}</h1>
     </div>
     <div id="pageContentContainer">
         <div id="detailEventContent" class="page-section">

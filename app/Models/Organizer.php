@@ -10,6 +10,7 @@ class Organizer extends Model
         'name',
         'instagram',
         'twitter',
+        'payment_account',
     ];
 
 
