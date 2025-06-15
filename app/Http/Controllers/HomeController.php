@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 
 class HomeController extends Controller
@@ -24,28 +24,15 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
     public function index()
     {
-        return view('home');
+        // Redirect based on role if needed
+        if (Auth::user()->role === 'admin') {
+            return redirect()->route('admin.home');
+        } else {
+            return redirect()->route('user.home');
+        }
     }
-
-    public function proteksi_1_admin()
-    {
-        echo "Ini adalah halaman yang terproteksi nomor 1 admint";
-    }
-
-     public function proteksi_1_user()
-    {
-        echo "Ini adalah halaman yang terproteksi nomor 1 user";
-    }
-
-    public function userHome()
-    {
-        $events = Event::where('start_date', '>=', now())
-                   ->orderBy('start_date', 'asc')
-                   ->take(6)
-                   ->get();
-        return view('user.home', compact('events'));
-    }
-
+ 
 }

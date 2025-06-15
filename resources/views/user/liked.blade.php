@@ -1,23 +1,14 @@
-@extends('admin.template')
+@extends('user.template')
 
-@section('title', 'Daftar Event - EventSphere')
+@section('title', 'Liked - EventSphere')
 
 @section('content')
-    <h1 class="mb-4">Daftar Event</h1>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col">
-           <a href="{{ route('admin.tambah') }}" class="text-decoration-none">
-               <div class="card h-100 event-card shadow-sm">
-                   <div class="d-flex align-items-center justify-content-center fw-bold text-bg-secondary"
-                       style="height: 200px; font-size:calc(5rem + 1.5vw)">
-                       <i class="bi bi-plus"></i>
-                   </div>
-                   <div class="card-body d-flex align-items-center justify-content-center fw-bold fs-3">
-                       Tambah Event
-                   </div>
-               </div>
-           </a>
-       </div>
+<h1 class="mb-4">Event yang Anda Sukai</h1>
+
+    @if ($events->isEmpty())
+        <p>Anda belum menyukai event apapun.</p>
+    @else
+     <div class="row row-cols-1 row-cols-md-3 g-4">
         @foreach ($events as $event)
             <div class="col">
                 <div class="card h-100 shadow-sm">
@@ -30,12 +21,11 @@
                         <p class="card-text small text-muted">Harga: {{ $event->harga == 0 ? 'Gratis' : 'Rp ' . number_format($event->harga, 0, ',', '.') }}</p>
                     </div>
                     <div class="card-footer bg-transparent border-top-0">
-                        <a href="{{ route('admin.event_detail',  ['slug' => $event->slug]) }}" class="btn btn-sm btn-primary w-100">Lihat Detail & Pendaftar</a>
+                        <a href="{{ route('user.event_detail',  ['slug' => $event->slug]) }}" class="btn btn-sm btn-primary w-100">Detail Event</a>
                     </div>
                 </div>
             </div>
         @endforeach
-
     </div>
-    </div>
+    @endif
 @endsection

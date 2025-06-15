@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Guest - EventSphere</title>
+    <title>@yield('title', 'User Home - EventSphere')</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Bootstrap Icons (Opsional, untuk ikon) -->
@@ -217,31 +217,35 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link text-white">
+                <a href="{{ route('user.events_list') }}" class="nav-link text-white {{ request()->routeIs('user.events_list')  ? 'active' : '' }}" class="nav-link text-white">
                     <i class="bi bi-calendar-event me-2"></i>
                     Daftar Event
                 </a>
             </li>
-            {{----------------------------------------------------------------------------------------------------------}}
             <li>
-                {{-- <a href="{{ route('guest.riwayat_pendaftaran') }}" class="nav-link text-white {{ request()->routeIs('guest.riwayat_pendaftaran')  ? 'active' : '' }}">
+                <a href="{{ route('user.booking_list') }}" class="nav-link text-white {{ request()->routeIs('user.booking_list')  ? 'active' : '' }}" class="nav-link text-white">
                     <i class="bi bi-clock-history me-2"></i>
                     Riwayat
-                </a> --}}
-            </li>
-            {{----------------------------------------------------------------------------------------------------------}}
-            {{-- <li>
-                <a href="#" class="nav-link text-white">
-                    <i class="bi bi-megaphone me-2"></i>
-                    Jadi Penyelenggara
                 </a>
-            </li> --}}
-            {{-- <li>
-                <a href="#" class="nav-link text-white">
+            </li>
+            <li>
+                <a href="{{ route('user.bookmarked') }}" class="nav-link text-white {{ request()->routeIs('user.bookmarked')  ? 'active' : '' }}" class="nav-link text-white">
+                    <i class="bi bi-bookmark-fill me-2"></i>
+                    Bookmark
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('user.liked') }}" class="nav-link text-white {{ request()->routeIs('user.liked')  ? 'active' : '' }}" class="nav-link text-white">
+                    <i class="bi bi-heart-fill me-2"></i>
+                    Liked Event
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('user.info') }}" class="nav-link text-white {{ request()->routeIs('user.info')  ? 'active' : '' }}" class="nav-link text-white">
                     <i class="bi bi-info-circle me-2"></i>
                     Tentang Kami
                 </a>
-            </li> --}}
+            </li>
         </ul>
         {{-- <hr class="text-secondary">
         <div class="dropdown">
@@ -283,12 +287,9 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-person-circle"></i> Akun Saya
+                                <i class="bi bi-person-circle"></i> {{ Auth::check() ? Auth::user()->name : '' }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" href="#">Profil</a></li>
-                                <li><a class="dropdown-item" href="#">Pengaturan</a></li>
-                                <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

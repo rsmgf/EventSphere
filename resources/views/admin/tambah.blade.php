@@ -1,5 +1,7 @@
 @extends('admin.template')
 
+@section('title', 'Tambah Event - EventSphere')
+
 @section('content')
 <h2>Tambah Event Baru</h2>
 

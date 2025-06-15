@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Halaman Admin - EventSphere')</title>
+    <title>@yield('title', 'Halaman Guest - EventSphere')</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Bootstrap Icons (Opsional, untuk ikon) -->
@@ -196,86 +196,57 @@
             font-size: 1.75rem;
             font-weight: bold;
         }
-
-        </style>
-        @yield('page_style')
+    </style>
 
 </head>
 <body>
 
     <!-- Sidebar -->
     <nav id="sidebarMenu" class="sidebar-alt d-flex flex-column p-3">
-        <a href="{{ route('home') }}" class="d-flex align-items-center mb-3 mb-md-0 text-white text-decoration-none justify-content-center">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 text-white text-decoration-none justify-content-center">
             {{-- <i class="bi bi-calendar3-event me-2 fs-4"></i> --}}
             <span class="sidebar-brand-text">EventSphere</span>
         </a>
         <hr class="text-secondary">
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="{{ route('admin.home') }}" class="nav-link text-white {{ request()->routeIs('admin.home')  ? 'active' : '' }}">
-                {{-- <a href="/guest/asdfb" class="nav-link text-white {{ request()->routeIs('guest.index')  ? 'active' : '' }}"> --}}
+                <a href="/" class="nav-link text-white">
                     <i class="bi bi-house-door me-2"></i>
                     Beranda
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.tambah') }}" class="nav-link text-white {{ request()->routeIs('admin.tambah')  ? 'active' : '' }}">
-                    <i class="bi bi-plus me-2"></i>
-                    Tambah Event
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.events_list') }}" class="nav-link text-white {{ request()->routeIs('admin.events_list')  ? 'active' : '' }}">
+                <a href="{{ route('user.events_list') }}" class="nav-link text-white {{ request()->routeIs('user.events_list')  ? 'active' : '' }}">
                     <i class="bi bi-calendar-event me-2"></i>
                     Daftar Event
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.org_list') }}" class="nav-link text-white {{ request()->routeIs('admin.org_list')  ? 'active' : '' }}">
-                    <i class="bi bi-person me-2"></i>
-                    Daftar Penyelenggara
+                <a href="{{ route('user.booking_list') }}" class="nav-link text-white {{ request()->routeIs('user.booking_list')  ? 'active' : '' }}" class="nav-link text-white">
+                    <i class="bi bi-clock-history me-2"></i>
+                    Riwayat
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.all_bookings') }}" class="nav-link text-white {{ request()->routeIs('admin.datftar_booking')  ? 'active' : '' }}">
-                    <i class="bi bi-info-circle-fill me-2"></i>
-                    Data Booking
+                <a href="{{ route('user.bookmarked') }}" class="nav-link text-white {{ request()->routeIs('user.bookmarked')  ? 'active' : '' }}" class="nav-link text-white">
+                    <i class="bi bi-bookmark-fill me-2"></i>
+                    Bookmark
                 </a>
             </li>
-            {{-- <li>
-                <a href="{{ route('admin.laporan') }}" class="nav-link text-white {{ request()->routeIs('admin.laporan')  ? 'active' : '' }}">
-                    <i class="bi bi-clock-history me-2"></i>
-                    Laporan
+            <li>
+                <a href="{{ route('user.liked') }}" class="nav-link text-white {{ request()->routeIs('user.liked')  ? 'active' : '' }}" class="nav-link text-white">
+                    <i class="bi bi-heart-fill me-2"></i>
+                    Liked Event
                 </a>
-            </li> --}}
-            {{-- ------------------------------------------------------------------ --}}
-            {{-- <li>
-                <a href="#" class="nav-link text-white">
-                    <i class="bi bi-megaphone me-2"></i>
-                    Jadi Penyelenggara
-                </a>
-            </li> --}}
-            {{-- <li>
-                <a href="#" class="nav-link text-white">
+            </li>
+            <li>
+                <a href="{{ route('info') }}" class="nav-link text-white {{ request()->routeIs('info')  ? 'active' : '' }}" class="nav-link text-white">
                     <i class="bi bi-info-circle me-2"></i>
                     Tentang Kami
                 </a>
-            </li> --}}
+            </li>
+            
         </ul>
-        {{-- <hr class="text-secondary">
-        <div class="dropdown">
-            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://via.placeholder.com/32" alt="" width="32" height="32" class="rounded-circle me-2">
-                <strong>User Name</strong>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser">
-                <li><a class="dropdown-item" href="#">New project...</a></li>
-                <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><a class="dropdown-item" href="#">Profile</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Sign out</a></li>
-            </ul>
-        </div> --}}
     </nav>
 
     <!-- Backdrop untuk sidebar di layar kecil (ketika aktif) -->
@@ -298,24 +269,15 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Notifikasi <span class="badge bg-danger">4</span></a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-person-circle"></i> {{ Auth::check() ? Auth::user()->name : '' }}
+                            <a class="nav-link" href="{{ route('register') }}" class="nav-link text-white">
+                            Register 
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                                <li>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                            </ul>
+                        </li>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}" class="nav-link text-white">
+                            Login
+                        </a>
                         </li>
                     </ul>
                 </div>
@@ -370,7 +332,5 @@
             }
         });
     </script>
-    {{-- @include('sweetalert::alert') --}}
-    @yield('page_javascript')
 </body>
 </html>
