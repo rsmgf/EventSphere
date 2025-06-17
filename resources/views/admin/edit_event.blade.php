@@ -50,7 +50,8 @@
 
 @if ($errors->any())
     <div class="alert alert-danger">
-        <ul class="mb-0">
+        <strong>Oops!</strong> Ada kesalahan saat mengisi form:<br><br>
+        <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
@@ -151,7 +152,7 @@
 
             {{-- Maksimal Pendaftar --}}
             <div class="mb-2">
-                <label for="max_tickets" class="form-label">Maksimal Pendaftar</label>
+                <label for="max_tickets" class="form-label">Jumlah Tiket</label>
                 <input type="number" class="form-control" id="max_tickets" name="max_tickets"
                     value="{{ old('max_tickets', $event->max_tickets) }}" min="1" required>
             </div>

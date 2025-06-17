@@ -15,7 +15,8 @@ class UserController extends Controller
     //LIST Event
     public function home()
     {
-        $events = Event::where('start_date', '>=', now())
+        $events = Event::withcount('bookings')
+            ->where('start_date', '>=', now())
             ->orderBy('start_date', 'asc')
             ->take(6)
             ->get();
@@ -40,20 +41,6 @@ class UserController extends Controller
     {
         $event = Event::with('organizer')->where('slug', $slug)->firstOrFail();
         return view('user.event_detail', compact('event'));
-    }
-
-    //DAFTAR EVENT
-    // Menampilkan form pendaftaran
-    public function showForm($eventId)
-    {
-        $event = Event::findOrFail($eventId);
-
-        // Cek kuota
-        if ($event->bookings()->count() >= $event->max_tickets) {
-            return back()->with('error', 'Tiket sudah habis.');
-        }
-
-        return view('user.daftar_event', compact('event'));
     }
 
     //Like & Bookmark
@@ -81,6 +68,19 @@ class UserController extends Controller
         return view('user.liked', compact('events'));
     }
 
+    //DAFTAR EVENT
+    // Menampilkan form pendaftaran
+    public function showForm($eventId)
+    {
+        $event = Event::findOrFail($eventId);
+
+        // Cek kuota
+        if ($event->bookings()->count() >= $event->max_tickets) {
+            return back()->with('error', 'Tiket sudah habis.');
+        }
+
+        return view('user.daftar_event', compact('event'));
+    }
 
     // Menyimpan data pendaftaran
     public function store(Request $request, $eventId)

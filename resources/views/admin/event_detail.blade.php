@@ -18,25 +18,23 @@
 
                     <h4 class="h4 mt-4 mb-3">Jadwal</h4>
                     <div class="event-meta-item">
-                        {{-- <i class="bi bi-calendar3"></i> --}}
                         <span>
-                            <strong>Tanggal: </strong>{{ \Carbon\Carbon::parse($event->start_date)->dayName }}, {{ \Carbon\Carbon::parse($event->start_date)->isoFormat('DD MMMM YYYY') }}
+                            <strong>Tanggal: </strong>{{ \Carbon\Carbon::parse($event->start_date)->dayName }}, {{ \Carbon\Carbon::parse($event->start_date)->isoFormat('DD MMMM YYYY') }} -
+                            {{ \Carbon\Carbon::parse($event->end_date)->dayName }}, {{ \Carbon\Carbon::parse($event->end_date)->isoFormat('DD MMMM YYYY') }}
                         </span>
                     </div>
                     <div class="event-meta-item">
-                        {{-- <i class="bi bi-clock"></i> --}}
                         <span><strong>Pukul:</strong> {{\Carbon\Carbon::parse($event->start_time)->isoFormat('HH:mm') }} - {{ \Carbon\Carbon::parse($event->end_time)->isoFormat('HH:mm') }}</span>
                     </div>
-                    {{-- <div class="event-meta-item">
-                        <i class="bi bi-geo-alt-fill"></i>
-                        <span><strong>Lokasi:</strong> Gelora Bung Karno Stadium, Jakarta</span>
-                    </div> --}}
 
                     <h4 class="h4 mt-4 mb-3">Syarat & Ketentuan</h4>
                     <p>{{ $event->sk }}</p>
 
                     <h4 class="h4 mt-4 mb-3">Sisa tiket</h4>
                     <p>{{ $event->max_tickets - $event->bookings->count() }}</p>
+
+                    <h4 class="h4 mt-4 mb-3">Pemateri</h4>
+                    <p>{{ $event->pemateri}}</p>
 
                     <h4 class="h4 mt-4 mb-3">Penyelenggara:</h4>
                     <p>{{ $event->organizer->name }}</p>

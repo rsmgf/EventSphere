@@ -1,6 +1,13 @@
 @extends('admin.template')
 
+
+@section('title', 'Home Admin - EventSphere')
+
 @section('content')
+ <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="great-vibes-font">Welcome To EventSphere{{ Auth::check() ? ', ' . Auth::user()->name . '!' : '!' }}!</h1>
+    </div>
+
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="col">
            <a href="{{ route('admin.tambah') }}" class="text-decoration-none">
@@ -22,9 +29,10 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $event->title }}</h5>
                             <p class="card-text">{{ \Illuminate\Support\Str::limit($event->description, 100) }}</p>
-                            <p class="card-text small text-muted">Tanggal: {{ \Carbon\Carbon::parse($event->start_date)->format('d-m-Y') }}</p>
-                            <p class="card-text small text-muted">Pendaftar: {{ $event->bookings_count ?? 0 }}</p>
-                            <p class="card-text small text-muted">Harga: {{ $event->harga == 0 ? 'Gratis' : 'Rp ' . number_format($event->harga, 0, ',', '.') }}</p>
+                            <p class="card-text small text-muted"><i class="bi bi-geo-alt me-1"></i>{{ \Illuminate\Support\Str::limit($event->location, 40) }}</p>
+                            <p class="card-text small text-muted"><i class="bi bi-calendar-event me-1"></i>{{ \Carbon\Carbon::parse($event->start_date)->format('d-m-Y') }}</p>
+                            <p class="card-text small text-muted"><i class="bi bi-person me-1"></i>Pendaftar: {{ $event->bookings_count}}</p>
+                            <p class="card-text small text-muted"><i class="bi bi-cash me-1"></i>{{ $event->harga == 0 ? 'Gratis' : 'Rp ' . number_format($event->harga, 0, ',', '.') }}</p>
                         </div>
                         <div class="card-footer bg-transparent border-top-0">
                             <a href="{{ route('admin.event_detail',  ['slug' => $event->slug]) }}" class="btn btn-sm btn-primary w-100">Lihat Detail & Pendaftar</a>

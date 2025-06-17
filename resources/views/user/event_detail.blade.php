@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Detail Event {{ $event['title'] }}</h1>
+        <h1 class="h4">Detail Event {{ $event['title'] }}</h1>
     </div>
     <div id="pageContentContainer">
         <div id="detailEventContent" class="page-section">
@@ -13,33 +13,30 @@
 
             <div class="event-details-body">
                 <div class="container mb-3 border-bottom">
-                    <h2 class="mb-3 h4">Deskripsi</h2>
+                    <h4 class="mb-3 h4">Deskripsi</h4>
                     <p>{{ $event['description'] }}</p>
 
 
-                    <h2 class="h4 mt-4 mb-3">Jadwal</h4>
+                    <h4 class="h4 mt-4 mb-3">Jadwal</h4>
                     <div class="event-meta-item">
-                        {{-- <i class="bi bi-calendar3"></i> --}}
                         <span>
                             <strong>Tanggal: </strong>{{ \Carbon\Carbon::parse($event->start_date)->dayName }}, {{ \Carbon\Carbon::parse($event->start_date)->isoFormat('DD MMMM YYYY') }}
                         </span>
                     </div>
                     <div class="event-meta-item">
-                        {{-- <i class="bi bi-clock"></i> --}}
                         <span><strong>Pukul:</strong> {{\Carbon\Carbon::parse($event->start_time)->isoFormat('HH:mm') }} - {{ \Carbon\Carbon::parse($event->end_time)->isoFormat('HH:mm') }}</span>
                     </div>
-                    {{-- <div class="event-meta-item">
-                        <i class="bi bi-geo-alt-fill"></i>
-                        <span><strong>Lokasi:</strong> Gelora Bung Karno Stadium, Jakarta</span>
-                    </div> --}}
 
-                    <h2 class="h4 mt-4 mb-3">Syarat & Ketentuan</h4>
-                    <pre>{{ $event->sk }}</pre>
+                    <h4 class="h4 mt-4 mb-3">Syarat & Ketentuan</h4>
+                    <p>{{ $event->sk }}</p>
                     
-                    <h2 class="h4 mt-4 mb-3">Sisa tiket</h2>
+                    <h4 class="h4 mt-4 mb-3">Sisa tiket</h4>
                     <p>{{ $event->max_tickets - $event->bookings->count() }}</p>
 
-                    <h2>Penyelenggara:</h2>
+                    <h4 class="h4 mt-4 mb-3">Pemateri</h4>
+                    <p>{{ $event->pemateri}}</p>
+
+                    <h4>Penyelenggara:</h4>
                     <p>{{ $event->organizer->name }}</p>
 
                     <div class="d-flex gap-2 mt-2">
@@ -62,23 +59,11 @@
                     <h4 class="h4 mt-4 mb-3">Nomor Pembayaran:</h4>
                     <p>{{ $event->organizer->payment_account }}</p>
 
-                    <h2 class="h4 mt-4 mb-3">Tempat / Platform</h4>
+                    <h4 class="h4 mt-4 mb-3">Tempat / Platform</h4>
                     <p>{{ $event['location'] }}</p>
 
                 </div>
                 <div class="d-flex justify-content-center gap-2">
-                    {{-- <form action="{{ route('guest.like_event') }}" method="post">
-                        @csrf
-                        <input type="hidden" name="event_id">
-                        <button type="submit" class="btn btn-primary flex items-center">
-                            @if ($event['is_like'])
-                                <i class="bi bi-heart-fill"></i>
-                            @else
-                                <i class="bi bi-heart"></i>
-                            @endif
-                            <span>Like</span>
-                        </button>
-                    </form> --}}
                     <form action="{{ route('user.like', $event->id) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn {{ Auth::check() && Auth::user()->likes->contains($event) ? 'btn-danger' : 'btn-outline-danger' }}">
@@ -100,26 +85,12 @@
                         @csrf
                         <button type="submit" class="btn {{ Auth::check() && Auth::user()->bookmarks->contains($event) ? 'btn-dark' : 'btn-outline-dark' }}">
                             @if(Auth::check() && Auth::user()->bookmarks->contains($event))
-                                {{-- State 1: Tampilan jika SUDAH dibookmark --}}
                                 <i class="bi bi-bookmark-fill"></i> Bookmark
                             @else
-                                {{-- State 2: Tampilan jika BELUM dibookmark --}}
                                 <i class="bi bi-bookmark"></i> Bookmark
                             @endif
                         </button>
                     </form>
-                    {{-- <form action="{{ route('guest.bookmark_event') }}" method="post">
-                        @csrf
-                        <input type="hidden" name="event_id">
-                        <button type="submit" class="btn btn-primary flex items-center">
-                            @if ($event['is_bookmark'])
-                                <i class="bi bi-bookmark-fill"></i>
-                            @else
-                                <i class="bi bi-bookmark"></i>
-                            @endif
-                            <span>Bookmark</span>
-                        </button>
-                    </form> --}}
                 </div>
             </div>
         </div>

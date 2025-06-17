@@ -5,6 +5,17 @@
 @section('content')
     <h2>Edit Organizer</h2>
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <strong>Oops!</strong> Ada kesalahan saat mengisi form:<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{ route('admin.org_update', $organizer->id) }}" method="POST">
         @csrf
         @method('PUT')

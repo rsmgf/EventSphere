@@ -13,7 +13,7 @@ use App\Models\Organizer;
 class AdminController extends Controller
 {
     //EVENT
-     // Tampilkan dashboard ke admin
+    // Tampilkan dashboard ke admin
     public function adminDashboard()
     {
         $bookings = Booking::with('event')->latest()->take(5)->get();
@@ -24,6 +24,14 @@ class AdminController extends Controller
                    ->get();
                    
         return view('admin.dashboard', compact('events', 'bookings'));
+    }
+    // Admin: list event
+    public function adminEvents()
+    {
+        $events = Event::withcount('bookings')
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(11);
+        return view('admin.events', compact('events'));
     }
 
     // Admin: form tambah event
@@ -36,19 +44,28 @@ class AdminController extends Controller
     // Admin: simpan event baru
     public function store(Request $request)
     {
+        $start = $request->start_date . ' ' . $request->start_time;
+        $end = $request->end_date . ' ' . $request->end_time;
+
+        $request->merge([
+        'start_datetime' => $start,
+        'end_datetime' => $end,
+        ]);
+
+
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required',
             'location' => 'required|string',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
-            'start_time' => 'required',
-            'end_time' => 'required|after:start_time',
+            'start_datetime' => 'required|date',
+            'end_datetime' => 'required|date|after:start_datetime',
             'sk' => 'nullable|string',
             'pemateri' => 'nullable|string|max:255',
             'harga' => 'nullable|numeric|min:0',
             'organizer_id' => 'required|exists:organizers,id',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:10240',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png',
             'max_tickets' => 'required|integer|min:1',
         ]);
         
@@ -119,7 +136,7 @@ class AdminController extends Controller
 
     if ($request->input('title') !== $event->title) {
         $slug = Str::slug($request->input('title'));
-        $count = \App\Models\Event::where('slug', $slug)->where('id', '!=', $event->id)->count();
+        $count = Event::where('slug', $slug)->where('id', '!=', $event->id)->count();
 
         if ($count > 0) {
             $slug .= '-' . ($count + 1);
@@ -151,14 +168,6 @@ class AdminController extends Controller
         return redirect()->route('admin.events_list')->with('success', 'Event berhasil dihapus.');
     }
 
-
-    public function adminEvents()
-    {
-        $events = Event::withcount('bookings')
-                        ->orderBy('created_at', 'desc')
-                        ->paginate(12);
-        return view('admin.events', compact('events'));
-    }
 
     public function showDetail($slug)
     {

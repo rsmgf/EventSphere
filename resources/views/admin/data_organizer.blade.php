@@ -1,5 +1,7 @@
 @extends('admin.template')
 
+@section('title', 'Data Penyelenggara - EventSphere')
+
 @section('content')
      <div class="d-flex justify-content-between align-items-center mt-3 mb-2">
         <h2 class="h3">Daftar Organizer</h2>

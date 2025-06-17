@@ -4,7 +4,18 @@
 
 
 @section('content')
-<h2>Tambah Event Baru</h2>
+<h2>Tambah Penyelenggara</h2>
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Oops!</strong> Ada kesalahan saat mengisi form:<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 <form action="{{ route('admin.org_store') }}" method="POST" enctype="multipart/form-data">
     @csrf

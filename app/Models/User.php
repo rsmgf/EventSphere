@@ -61,18 +61,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Event::class, 'bookings')->withTimestamps();
     }
 
-    // Di User.php
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
     public function bookmarks()
     {
         return $this->belongsToMany(Event::class, 'bookmarks')->withTimestamps();
     }
 
-    /**
-    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    */
     public function likes()
     {
         return $this->belongsToMany(Event::class, 'likes')->withTimestamps();
