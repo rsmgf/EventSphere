@@ -27,8 +27,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('events', [AdminController::class, 'adminEvents'])->name('events_list');
         Route::get('events/tambah', [AdminController::class, 'tambah'])->name('tambah');
         Route::post('events', [AdminController::class, 'store'])->name('store');
-        Route::put('admin/events/{event}', [AdminController::class, 'update'])->name('update');
         Route::get('admin/events/{event}/edit', [AdminController::class, 'edit'])->name('edit');
+        Route::put('admin/events/{event}', [AdminController::class, 'update'])->name('update');
         Route::delete('admin/event/{id}', [AdminController::class, 'destroy'])->name('delete_event');
 
         // Bookings

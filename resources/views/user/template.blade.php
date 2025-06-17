@@ -29,12 +29,12 @@
             left: 0;
             z-index: 100; /* Di atas konten lain */
             padding-top: var(--navbar-height); /* Memberi ruang untuk topbar jika topbar juga fixed dan full width */
-            background-color: #343a40; /* Warna sidebar (dark) */
+            background-color: #343a40; /* Warna sidebar */
             color: #adb5bd;
             transition: margin-left 0.3s ease-in-out;
         }
 
-        /* Untuk sidebar yang menutupi topbar (lebih umum) */
+        /* Untuk sidebar yang menutupi topbar*/
         .sidebar-alt {
             width: var(--sidebar-width);
             min-height: 100vh;
@@ -42,7 +42,7 @@
             top: 0;
             left: 0;
             z-index: 1030; /* Di atas navbar */
-            background-color: #212529; /* Warna sidebar (sangat dark) */
+            background-color: #212529; /* Warna sidebar */
             color: #adb5bd;
             transition: transform 0.3s ease-in-out;
             padding-top: 1rem; /* Padding atas untuk logo/judul */
@@ -102,10 +102,6 @@
                 margin-left: 0; /* Konten full width */
                 width: 100%;
             }
-            /* Jika sidebar aktif di layar kecil, konten bisa digeser atau diberi backdrop */
-            /* body.sidebar-active .main-content {
-                margin-left: var(--sidebar-width);
-            } */
         }
 
         .sidebar-brand-text {
@@ -247,20 +243,6 @@
                 </a>
             </li>
         </ul>
-        {{-- <hr class="text-secondary">
-        <div class="dropdown">
-            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://via.placeholder.com/32" alt="" width="32" height="32" class="rounded-circle me-2">
-                <strong>User Name</strong>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser">
-                <li><a class="dropdown-item" href="#">New project...</a></li>
-                <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><a class="dropdown-item" href="#">Profile</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Sign out</a></li>
-            </ul>
-        </div> --}}
     </nav>
 
     <!-- Backdrop untuk sidebar di layar kecil (ketika aktif) -->
@@ -282,9 +264,6 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Notifikasi <span class="badge bg-danger">4</span></a>
-                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-person-circle"></i> {{ Auth::check() ? Auth::user()->name : '' }}
@@ -329,14 +308,11 @@
             const sidebar = document.getElementById('sidebarMenu');
             const sidebarToggle = document.getElementById('sidebarToggle');
             const sidebarBackdrop = document.getElementById('sidebarBackdrop');
-            // const mainContent = document.querySelector('.main-content'); // Tidak digunakan jika hanya overlay
-            // const topNavbar = document.querySelector('.top-navbar'); // Tidak digunakan jika hanya overlay
 
             if (sidebarToggle) {
                 sidebarToggle.addEventListener('click', function () {
                     sidebar.classList.toggle('active');
                     // Untuk menggeser konten jika sidebar tidak overlay
-                    // document.body.classList.toggle('sidebar-active');
 
                     // Toggle backdrop
                     if (sidebar.classList.contains('active')) {

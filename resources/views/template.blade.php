@@ -34,7 +34,7 @@
             transition: margin-left 0.3s ease-in-out;
         }
 
-        /* Untuk sidebar yang menutupi topbar (lebih umum) */
+        /* Untuk sidebar yang menutupi topbar */
         .sidebar-alt {
             width: var(--sidebar-width);
             min-height: 100vh;
@@ -42,7 +42,7 @@
             top: 0;
             left: 0;
             z-index: 1030; /* Di atas navbar */
-            background-color: #212529; /* Warna sidebar (sangat dark) */
+            background-color: #212529; /* Warna sidebar */
             color: #adb5bd;
             transition: transform 0.3s ease-in-out;
             padding-top: 1rem; /* Padding atas untuk logo/judul */
@@ -103,9 +103,6 @@
                 width: 100%;
             }
             /* Jika sidebar aktif di layar kecil, konten bisa digeser atau diberi backdrop */
-            /* body.sidebar-active .main-content {
-                margin-left: var(--sidebar-width);
-            } */
         }
 
         .sidebar-brand-text {
@@ -305,14 +302,11 @@
             const sidebar = document.getElementById('sidebarMenu');
             const sidebarToggle = document.getElementById('sidebarToggle');
             const sidebarBackdrop = document.getElementById('sidebarBackdrop');
-            // const mainContent = document.querySelector('.main-content'); // Tidak digunakan jika hanya overlay
-            // const topNavbar = document.querySelector('.top-navbar'); // Tidak digunakan jika hanya overlay
 
             if (sidebarToggle) {
                 sidebarToggle.addEventListener('click', function () {
                     sidebar.classList.toggle('active');
                     // Untuk menggeser konten jika sidebar tidak overlay
-                    // document.body.classList.toggle('sidebar-active');
 
                     // Toggle backdrop
                     if (sidebar.classList.contains('active')) {

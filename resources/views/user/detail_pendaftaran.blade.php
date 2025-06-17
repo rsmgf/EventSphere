@@ -38,6 +38,16 @@
                                 <i class="bi bi-geo-alt-fill"></i>
                                 <span>{{ $event['location'] ?? '-' }}</span>
                             </div>
+                            <div class="event-meta-item mb-2">
+                                <i class="bi bi-cash"></i>
+                                <span> 
+                                    @if($event->harga > 0)
+                                        {{ 'Rp ' . number_format($event->harga, 0, ',', '.') }}
+                                    @else
+                                        Gratis
+                                    @endif
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -66,10 +76,6 @@
                                 value="{{ $pendaftaran['nomor_hp'] ?? '' }}" readonly>
                         </div>
 
-                        {{-- Uncomment if you want a submit action --}}
-                        {{-- <div>
-                            <button type="submit" class="btn btn-primary">Konfirmasi</button>
-                        </div> --}}
                     </form>
                 </div>
             </div>

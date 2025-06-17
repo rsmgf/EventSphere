@@ -9,7 +9,11 @@ class GuestController extends Controller
 {
      public function index()
     {
-        $events = Event::orderBy('start_date', 'asc')->paginate(12);
+        $events = Event::withcount('bookings')
+            ->where('start_date', '>=', now())
+            ->orderBy('start_date', 'asc')
+            ->take(6)
+            ->get();
         return view('home', compact('events'));
     }
 
